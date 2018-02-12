@@ -38,7 +38,7 @@ git_colour() {
 	if [[ $gitstatus =~ "??" ]]; then
 		echo -e $COLOURRED	
 	elif [[ $gitstatus =~ "A" ]]; then
-		echo -e $COLOURYELLOW
+		echo -e $COLOURBLUE
 	else
 		echo -e $COLOURGREEN
 	fi

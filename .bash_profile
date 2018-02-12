@@ -29,16 +29,18 @@ PROMPT_DIRTRIM=2
 # eval "$(dircolors -b)"
 # alias ls='ls $LS_OPTIONS'
 
-# Git branch in prompt.
-
-## Colour variables
+# Colour variables
 COLOURGREEN="\033[01;32m"
+COLOURBLUE_GREEN_BK="\033[34;102m"
 COLOURBLUE="\033[01;34m"
+COLOURBLUE_YELLOW_BK="\033[34;103m"
 COLOURPLAIN="\033[m"
-COLOURRED="\033[1;31m"
-COLOURYELLOW="\033[1;33m"
+COLOURRED="\033[01;31m"
+COLOURBLUE_RED_BK="\033[34;101m"
+#COLOURYELLOW="\033[1;33m"
+COLOURYELLOW="\e[48;5;215m"
 #COLOROCHRE="\033[38;5;95m"
-COLOUROCHRE="\033[0;95m"
+#COLOUROCHRE="\033[0;95m"
 #COLORWHITE="\033[0;37m"
 #COLORWHITE="\033[0;37m"
 
@@ -47,32 +49,27 @@ parse_git_branch() {
 }
 
 git_colour() {
-    #local gitstatus="$(git status 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')"
+	#local gitstatus="$(git status 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')"
+	
+	local gitstatus="$(git status --porcelain 2> /dev/null)"
 
-    # use git porcelain so that updates to text don't ruin script
-    
-    local gitstatus="$(git status --porcelain 2> /dev/null)"
-
-    # if [[ ! $gitstatus =~ "working directory clean" ]]; then
-    # 	echo -e $COLOURRED
-    # elif [[ $gitstatus =~ "Untracked files:" ]]; then
-    # 	echo -e $COLOURYELLOW
-    if [[ $gitstatus =~ "??" ]]; then
-	echo -e $COLOURRED	
-    elif [[ $gitstatus =~ "A" ]]; then
-	echo -e $COLOURYELLOW
-    else
-	echo -e $COLOURGREEN
-    fi
+	# if [[ ! $gitstatus =~ "working directory clean" ]]; then
+	# 	echo -e $COLOURRED
+	# elif [[ $gitstatus =~ "Untracked files:" ]]; then
+	# 	echo -e $COLOURYELLOW
+	if [[ $gitstatus =~ "??" ]]; then
+		echo -e $COLOURBLUE_RED_BK	
+	elif [[ $gitstatus =~ "A" ]]; then
+		echo -e $COLOURBLUE_YELLOW_BK
+	else
+	        echo -e $COLOURBLUE_GREEN_BK
+	fi
 }
 
-# username@hostname /u /h
 #export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\$(git_colour)\]\$(parse_git_branch)\[\033[m\] $ "
 
-# username@hostname /u @ is black /h
 #export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[01;32m\]\h\[\033[01;34m\] \W\[\$(git_colour)\]\$(parse_git_branch)\[\033[m\] $ "
 
-# current directory /W
 export PS1="\W\[\$(git_colour)\]\$(parse_git_branch)\[\033[m\] $ "
 
-
+#export PS1="\W\[\$(git_colour)\]$(parse_git_branch)\[\033[m\] $ "
