@@ -16,6 +16,9 @@ COLOURBLUE="\033[01;34m"
 COLOURPLAIN="\033[m"
 COLOURRED="\033[1;31m"
 COLOURYELLOW="\033[1;33m"
+COLOURBLUE_GREEN_BK="\033[34;102m"
+COLOURBLUE_YELLOW_BK="\033[34;103m"
+COLOURBLUE_RED_BK="\033[34;101m"
 #COLOROCHRE="\033[38;5;95m"
 COLOUROCHRE="\033[0;95m"
 #COLORWHITE="\033[0;37m"
@@ -36,11 +39,11 @@ git_colour() {
 	# elif [[ $gitstatus =~ "Untracked files:" ]]; then
 	# 	echo -e $COLOURYELLOW
 	if [[ $gitstatus =~ "??" ]]; then
-		echo -e $COLOURRED	
+		echo -e $COLOURBLUE_RED_BK	
 	elif [[ $gitstatus =~ "A" ]]; then
-		echo -e $COLOURBLUE
+		echo -e $COLOURBLUE_YELLOW_BK
 	else
-		echo -e $COLOURGREEN
+		echo -e $COLOURBLUE_GREEN_BK
 	fi
 }
 
