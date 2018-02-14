@@ -1,4 +1,5 @@
-# PATH declarations
+## PATH declarations
+####################
 export PATH="/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 export PATH="$PATH:/usr/local/smlnj/bin"
 ###/usr/local/lib/ruby/gems/2.2.0/bin:
@@ -15,21 +16,24 @@ alias ll='ls -lahG'
 
 ###source ~/.profile
 
-# run every time we open a new window
+## run every time a new window opens
+####################################
 eval "$(rbenv init -)"
 
+## installers
+#############
 # added by Anaconda3 4.2.0 installer
 #export PATH="/Users/Walter/anaconda3/bin:$PATH"
 
-# edit prompt
-#export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[m\]\$ "
-
-PROMPT_DIRTRIM=2
+## For Linux Mint
+#################
+# PROMPT_DIRTRIM=2
 # export LS_OPTIONS='--color=auto'
 # eval "$(dircolors -b)"
 # alias ls='ls $LS_OPTIONS'
 
-# Colour variables
+##  Colour variable constants
+#############################
 COLOURGREEN="\033[01;32m"
 COLOURBLUE_GREEN_BK="\033[34;102m"
 COLOURBLUE="\033[01;34m"
@@ -44,6 +48,8 @@ COLOURYELLOW="\e[48;5;215m"
 #COLORWHITE="\033[0;37m"
 #COLORWHITE="\033[0;37m"
 
+## Add colour to git status
+###########################
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -53,11 +59,14 @@ git_colour() {
 	
 	local gitstatus="$(git status --porcelain 2> /dev/null)"
 
-	# if [[ ! $gitstatus =~ "working directory clean" ]]; then
-	# 	echo -e $COLOURRED
-	# elif [[ $gitstatus =~ "Untracked files:" ]]; then
-	# 	echo -e $COLOURYELLOW
-	if [[ $gitstatus =~ "??" ]]; then
+	## git (command) --porcelain
+	############################
+	##     ?? new file, red
+	##     M modifed, red
+	##     A appended, staged but not committed, yellow
+	##     _ no command for no error, clean, green
+	###################################################
+	if [[ $gitstatus =~ "??" || $gitstatus =~ "M" ]]; then
 		echo -e $COLOURBLUE_RED_BK	
 	elif [[ $gitstatus =~ "A" ]]; then
 		echo -e $COLOURBLUE_YELLOW_BK
@@ -65,6 +74,9 @@ git_colour() {
 	        echo -e $COLOURBLUE_GREEN_BK
 	fi
 }
+
+## prompt of the day with git colour status
+###########################################
 
 #export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\$(git_colour)\]\$(parse_git_branch)\[\033[m\] $ "
 
