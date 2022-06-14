@@ -2,7 +2,7 @@
 ## Some scripts I've used from time to time on my Linux machine. 
 - **bash_profile** : change the colour of the bash prompt based on the current git porcelain condition.  (red not staged, yellow staged, green committed)
  
-- **days_from_now.py** : Python script to return the date based on number of days entered.  
+- **days_from_now.py** : Python 3 script to return the date based on number of days entered.  
  
 - **redshift.sh** : Set the exact Latitude Longitude values for Toronto for best red shift.
  
